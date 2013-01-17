@@ -9,8 +9,11 @@ int main()
 
 	read_jpeg("./samples/01.jpg", &iif, 1);
 	write_jpeg("./tmp/01_out.jpg", &iif);
+	free(iif.raw);
+	
 	read_jpeg("./samples/02.jpg", &iif, 2);
 	write_jpeg("./tmp/02_out.jpg", &iif);
+	free(iif.raw);
 
 	printf("\t===> generate ./tmp/01_out.jpg\n");
 	printf("\t===> generate ./tmp/02_out.jpg\n");
