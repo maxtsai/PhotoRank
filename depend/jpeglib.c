@@ -4,7 +4,7 @@
 #include <string.h>
 #include <errno.h>
 
-#include "jpeglib.h"
+#include "jpeg.h"
 
 
 int read_jpeg(char *filename, struct image_info *iif, int desired_color_space)
@@ -59,6 +59,9 @@ int read_jpeg(char *filename, struct image_info *iif, int desired_color_space)
 	iif->height = cinfo.image_height;
 	iif->bytes_per_pixel = cinfo.num_components;
 	iif->raw = NULL;
+	iif->m_raw = (unsigned char *) malloc(cinfo.output_width *
+			cinfo.num_components );
+	memset(iif->m_raw, 0, cinfo.output_width * cinfo.num_components);
 
 	if (desired_color_space == JCS_RGB) {
 		iif->raw = raw_image;
@@ -69,8 +72,12 @@ int read_jpeg(char *filename, struct image_info *iif, int desired_color_space)
 		int total_size = cinfo.output_width * cinfo.output_height *
 			cinfo.num_components;
 		for (i = j = 0; i < total_size; i += cinfo.num_components, j++)
+#if 0
 			iif->raw[j] = (unsigned char)
 				(0.3 * raw_image[i] + 0.59 * raw_image[i+1] + 0.11 * raw_image[i+2]);
+#else
+			iif->raw[j] = (unsigned char) raw_image[i+1];
+#endif
 		free(raw_image);
 	} else {
 		printf("unable to meet desired color space (image: %d, desired: %d)\n",
