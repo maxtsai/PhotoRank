@@ -39,3 +39,4 @@ clean:
 	rm -rf functions/*.o
 	rm -rf tmp
 	rm -rf depend/test_jpeglib
+	rm -rf functions/test_function
