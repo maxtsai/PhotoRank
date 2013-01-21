@@ -37,6 +37,7 @@ core/core.o: core/core.c
 clean:
 	rm -rf depend/*.o
 	rm -rf functions/*.o
+	rm -rf core/*.o
 	rm -rf tmp
 	rm -rf depend/test_jpeglib
 	rm -rf functions/test_function
