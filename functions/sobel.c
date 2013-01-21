@@ -25,7 +25,7 @@ int mask[MASK_N][MASK_X][MASK_Y] = {
 
 int sobel(struct image_info *iif, double threshold) {
 
-	unsigned int  x, y, i, v, u;
+	int  x, y, i, v, u;
 	unsigned char R, G, B;
 	double val[MASK_N] = {0.0};
 	int xadjust, yadjust, xbound, ybound;
@@ -57,16 +57,16 @@ int sobel(struct image_info *iif, double threshold) {
 			}
 			total = sqrt(total);
 			if (total - threshold >= 0) {
-				// black
-				*(iif->m_raw + iif->bytes_per_pixel * (iif->width * y + x) + 2) = BLACK;
-				*(iif->m_raw + iif->bytes_per_pixel * (iif->width * y + x) + 1) = BLACK;
-				*(iif->m_raw + iif->bytes_per_pixel * (iif->width * y + x) + 0) = BLACK;
+				/* black */
+				*(iif->raw1 + iif->bytes_per_pixel * (iif->width * y + x) + 2) = BLACK;
+				*(iif->raw1 + iif->bytes_per_pixel * (iif->width * y + x) + 1) = BLACK;
+				*(iif->raw1 + iif->bytes_per_pixel * (iif->width * y + x) + 0) = BLACK;
 			}
 			else {
-				// white
-				*(iif->m_raw + iif->bytes_per_pixel * (iif->width * y + x) + 2) = WHITE;
-				*(iif->m_raw + iif->bytes_per_pixel * (iif->width * y + x) + 1) = WHITE;
-				*(iif->m_raw + iif->bytes_per_pixel * (iif->width * y + x) + 0) = WHITE;
+				/* white */
+				*(iif->raw1 + iif->bytes_per_pixel * (iif->width * y + x) + 2) = WHITE;
+				*(iif->raw1 + iif->bytes_per_pixel * (iif->width * y + x) + 1) = WHITE;
+				*(iif->raw1 + iif->bytes_per_pixel * (iif->width * y + x) + 0) = WHITE;
 			}
 		}
 	}
