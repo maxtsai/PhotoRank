@@ -10,6 +10,7 @@ struct image_info {
 	int bytes_per_pixel;
 };
 
+int image_create(struct image_info *iif);
 void image_clean(struct image_info *iif);
 void image_swap(struct image_info *iif);
 #endif

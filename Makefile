@@ -5,11 +5,13 @@ FLAGS=-O2 -Wall -std=c89 -I./depend -I./functions -I./core
 ## Test Build
 test: test_jpeglib test_function
 	@test -d ./tmp || mkdir ./tmp
+	@echo "\n"
 	depend/test_jpeglib
 	functions/test_function
 
-test_function: functions/test.o functions/sobel.o depend/jpeg.o core/core.o
+test_function: functions/test.o functions/sobel.o depend/jpeg.o core/core.o functions/fast-canny.o
 	@$(CC) $(FLAGS) -g -o functions/test_function functions/test.o\
+		functions/fast-canny.o\
 		functions/sobel.o\
 		depend/jpeg.o\
 		core/core.o\
@@ -20,6 +22,9 @@ functions/test.o: functions/test.c
 
 functions/sobel.o: functions/sobel.c
 	@$(CC) $(FLAGS) -c functions/sobel.c -o functions/sobel.o
+
+functions/fast-canny.o: functions/fast-canny.c
+	@$(CC) $(FLAGS) -c functions/fast-canny.c -o functions/fast-canny.o
 
 test_jpeglib: depend/test.o depend/jpeg.o core/core.o
 	@$(CC) $(FLAGS) -g -o depend/test_jpeglib depend/test.o\
