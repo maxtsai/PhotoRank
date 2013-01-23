@@ -33,7 +33,7 @@
 
 /* percentage of pixels that meet the high threshold - for example 0.15 will ensure
  * that at least 15% of edge pixels are considered to meet the high threshold */
-#define HIGH_THRESHOLD_PERCENTAGE 0.10
+#define HIGH_THRESHOLD_PERCENTAGE 0.15
 
 #define min(X,Y) ((X) < (Y) ? (X) : (Y))
 #define max(X,Y) ((X) < (Y) ? (Y) : (X))

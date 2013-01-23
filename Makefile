@@ -6,12 +6,18 @@ FLAGS=-O2 -Wall -std=c89 -I./depend -I./functions -I./core
 test: test_jpeglib test_function
 	@test -d ./tmp || mkdir ./tmp
 	@echo "\n"
-	depend/test_jpeglib
+	#depend/test_jpeglib
 	functions/test_function
 
-test_function: functions/test.o functions/sobel.o depend/jpeg.o core/core.o functions/fast-canny.o
+test_function: functions/test.o\
+	functions/sobel.o\
+	depend/jpeg.o\
+	core/core.o\
+	functions/fast-canny.o\
+	functions/blurdetect.o
 	@$(CC) $(FLAGS) -g -o functions/test_function functions/test.o\
 		functions/fast-canny.o\
+		functions/blurdetect.o\
 		functions/sobel.o\
 		depend/jpeg.o\
 		core/core.o\
@@ -19,6 +25,9 @@ test_function: functions/test.o functions/sobel.o depend/jpeg.o core/core.o func
 
 functions/test.o: functions/test.c
 	@$(CC) $(FLAGS) -g -c functions/test.c -o functions/test.o
+
+functions/blurdetect.o: functions/blurdetect.c
+	@$(CC) $(FLAGS) -g -c functions/blurdetect.c -o functions/blurdetect.o
 
 functions/sobel.o: functions/sobel.c
 	@$(CC) $(FLAGS) -c functions/sobel.c -o functions/sobel.o

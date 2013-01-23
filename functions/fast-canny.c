@@ -70,7 +70,7 @@ void hysteresis(int high, int low, struct image_info * img_in, struct image_info
 	int x, y, n, max;
 	max = img_in->width * img_in->height;
 	for (n = 0; n < max; n++)
-		img_out->raw1[n] = 0x00;
+		img_out->raw1[n] = 0xFF;
 	for (y=0; y < img_out->height; y++) {
 		for (x=0; x < img_out->width; x++) {
 			if (img_in->raw[y * img_out->width + x] >= high) {
@@ -84,9 +84,9 @@ int trace(int x, int y, int low, struct image_info * img_in, struct image_info *
 {
 	int y_off, x_off;
 
-	if (img_out->raw1[y * img_out->width + x] == 0)
+	if (img_out->raw1[y * img_out->width + x] == 0xFF)
 	{
-		img_out->raw1[y * img_out->width + x] = 0xFF;
+		img_out->raw1[y * img_out->width + x] = 0x00;
 		for (y_off = -1; y_off <=1; y_off++)
 		{
 			for(x_off = -1; x_off <= 1; x_off++)
@@ -137,11 +137,13 @@ void estimate_threshold(struct image_info *iif, int *high, int *low) {
 		i--;
 	}
 	*high = i;
+
 	i = 1;
 	while (histogram[i] == 0) {
 		i++;
 	}
 	*low = (*high + i) * LOW_THRESHOLD_PERCENTAGE;
+
 	#ifdef PRINT_HISTOGRAM
 	for (i = 0; i < 256; i++) {
 		printf("i %d count %d\n", i, histogram[i]);
@@ -195,7 +197,7 @@ void non_max_suppression(struct image_info *iif, int g[], int dir[]) {
 						iif->raw[x + y] = 0x00;
 					break;
 				default:
-					printf("ERROR - direction outside range 0 to 3");
+					printf("ERROR - direction outside range 0 to 3, dir[%d+%d] = %d\n", x, y, dir[x+y]);
 					break;
 			}
 		}
