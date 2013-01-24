@@ -1,6 +1,6 @@
 
 CC=clang
-FLAGS=-O2 -Wall -std=c89 -I./depend -I./functions -I./core
+FLAGS=-O3 -Wall -std=c89 -I./depend -I./functions -I./core
 
 ## Test Build
 test: test_jpeglib test_function
@@ -21,7 +21,7 @@ test_function: functions/test.o\
 		functions/sobel.o\
 		depend/jpeg.o\
 		core/core.o\
-		-ljpeg -lm
+		-ljpeg -lm -lpthread
 
 functions/test.o: functions/test.c
 	@$(CC) $(FLAGS) -g -c functions/test.c -o functions/test.o

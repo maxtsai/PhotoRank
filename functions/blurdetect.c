@@ -54,16 +54,17 @@ static double calc_kurtosis(double *edges, int len)
 /* precondition:
  * 	Image should be transfered to grayscale in advance
  */
+
 float calc_blur(struct image_info *iif)
 {
 	float rate = 0;
 	double *edges = malloc(iif->width * iif->height * sizeof(double));
 	
 	get_edge_strength(iif, edges);
-	rate = calc_kurtosis(edges, iif->width * iif->height) * 10.f;
+	rate = calc_kurtosis(edges, iif->width * iif->height) * 100000.f;
 
 	free(edges);
 
-	return rate;
+	return (rate > 100 ? 100 : rate);
 }
 

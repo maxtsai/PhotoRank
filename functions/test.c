@@ -9,25 +9,28 @@ int main()
 {
 	struct image_info iif;
 	char filename[128];
-	int i;
+	int i, j;
 
 
 	system("date");
 
 	printf("\t--- sobel edge detect\n");
-	for (i = 5; i < 8; i++) {
-		sprintf(filename, "./samples/%02d.jpg", i);
-		read_jpeg(filename, &iif, 1);
-		sobel(&iif, 70);
-		image_swap(&iif);
-		printf("\t%s, blur rate = %f\n", filename, calc_blur(&iif));
+	for (j = 0; j < 2; j++) {
+		for (i = 1; i < 11; i++) {
+			sprintf(filename, "./samples/%02d.jpg", i);
+			read_jpeg(filename, &iif, 1);
+			sobel(&iif, 70);
+			image_swap(&iif);
+			printf("\t%s, blur rate = %f\n", filename, calc_blur(&iif));
 
-		sprintf(filename, "./tmp/%02d_out.jpg", i);
-		write_jpeg(filename, &iif);
-		image_clean(&iif);
+			sprintf(filename, "./tmp/%02d_out.jpg", i);
+			write_jpeg(filename, &iif);
+			image_clean(&iif);
+		}
 	}
 	system("date");
 
+#if 0
 	printf("\t--- canny edge detect\n");
 	for (i = 5; i < 8; i++) {
 		sprintf(filename, "./samples/%02d.jpg", i);
@@ -42,6 +45,7 @@ int main()
 		image_clean(&iif);
 	}
 	system("date");
+#endif
 
 	printf("\n\n");
 
