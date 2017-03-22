@@ -13,3 +13,6 @@ Test result:
 	(3) Fast-canny:
 		0.8 second per one file
 
+
+Dependence:
+	libjpeg-dev

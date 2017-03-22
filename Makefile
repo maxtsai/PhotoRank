@@ -1,5 +1,5 @@
 
-CC=clang
+CC=gcc
 FLAGS=-O3 -Wall -std=c89 -I./depend -I./functions -I./core
 
 ## Test Build
